@@ -23,6 +23,7 @@ app.use(express.json());
 
 app.use("/api", scrapRoute);
 app.use("/api/crawlo", productRoute);
+
 //start server
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`app is running on port ${port}`));

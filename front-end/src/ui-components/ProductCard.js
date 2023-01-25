@@ -15,11 +15,11 @@ import {
 
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
-// import { deliveryToHours } from '../utils/utils';
+import { deliveryToHours, disponibleToInStock } from '../utils/utils';
 
 const ProductCard = ({ product }) => {
     useEffect(() => {
-        console.log(product.specifications);
+        console.log(product.name);
     }, []);
 
     return (
@@ -58,20 +58,20 @@ const ProductCard = ({ product }) => {
                                 color="warning"
                                 size="small"
                                 textAlign="center"
-                                label="Delivery: 24H"
+                                label={`Delivery: ${deliveryToHours(product.delivery)} H`}
                             />
 
                             <Chip
                                 color="success"
                                 size="small"
                                 textAlign="center"
-                                label={`Availability: ${product.availability}`}
+                                label={`Availability: ${disponibleToInStock(product.availability)}`}
                             />
                             <Chip
                                 color="error"
                                 size="small"
                                 textAlign="center"
-                                label={`Price: ${product.price}`}
+                                label={`Price: ${product.price} €`}
                             />
                         </Grid>
                     </Stack>

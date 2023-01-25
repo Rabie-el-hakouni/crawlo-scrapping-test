@@ -11,14 +11,13 @@ import { getAllProducts } from '../utils/products';
 
 const theme = createTheme();
 
-function Main() {
+const Main = () => {
     const [products, setProducts] = useState([]);
+
     const fetchDataProducts = async () => {
         try {
             const data = await getAllProducts();
             setProducts(data);
-            console.log(data);
-            // setSelectedCategory('');
         } catch (error) {
             console.log(error);
         }
@@ -67,6 +66,6 @@ function Main() {
             <Footer />
         </ThemeProvider>
     );
-}
+};
 
 export default Main;

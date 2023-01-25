@@ -9,7 +9,6 @@ const Catgeory = ({ setProducts, getAllProducts }) => {
             const data = await getAllCategories();
             setCategories(data);
             console.log(data);
-            // setSelectedCategory('');
         } catch (error) {
             console.log(error);
         }
@@ -22,8 +21,6 @@ const Catgeory = ({ setProducts, getAllProducts }) => {
         try {
             const data = await getaProductsByCategoryId(categoryId.target.value);
             setProducts(data);
-            console.log(data);
-            // setSelectedCategory('');
         } catch (error) {
             console.log(error);
         }
@@ -43,7 +40,6 @@ const Catgeory = ({ setProducts, getAllProducts }) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Catgoery"
-                    // value={categories[0]?._id}
                     onChange={(value) => onChange(value)}
                 >
                     {React.Children.toArray(

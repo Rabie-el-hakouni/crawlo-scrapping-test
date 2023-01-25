@@ -1,22 +1,25 @@
-const express = require('express');
+const express = require("express");
 
+//-----------------------------Product Router-----------------------------------//
 const router = express.Router();
 
-const { 
-    getAllCatgeories,
-    getaProductsByCategoryId,
-    categoryId,
-    getaAllProducts } = require('../controllers/productController');
+const {
+  getAllCatgeories,
+  getaProductsByCategoryId,
+  categoryId,
+  getaAllProducts,
+} = require("../controllers/productController");
 
-    //router get all Products 
-    router.get('/products', getaAllProducts);
+//router get all Products
+router.get("/products", getaAllProducts);
 
-    //get Product by Category
-    router.get('/products/:categoryId' , getaProductsByCategoryId);
+//get Product by Category
+router.get("/products/:categoryId", getaProductsByCategoryId);
 
-    //get all Ctaegories
-    router.get('/categories' , getAllCatgeories);
+//get all Ctaegories
+router.get("/categories", getAllCatgeories);
 
-    router.param('categoryId', categoryId);
+//middlawre
+router.param("categoryId", categoryId);
 
 module.exports = router;

@@ -1,7 +1,9 @@
 const express = require("express");
-const scrappAllUrls = require("../../scrapper");
+const scrappAllUrls = require("../scrapping/scrapper");
 
+//-------------------------Scrap Router-----------------------------------//
 const router = express.Router();
+//start scraping by this route
 router.get("/scrap", (req, res) => {
   try {
     scrappAllUrls();

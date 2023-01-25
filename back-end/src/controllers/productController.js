@@ -40,7 +40,7 @@ exports.getaProductsByCategoryId = async (req, res) => {
   }
 };
 
-//check if category exists
+//middlawre to check if category exists
 exports.categoryId = (req, res, next, id) => {
   Category.findById(id).exec((err, category) => {
     if (err || !category) {
