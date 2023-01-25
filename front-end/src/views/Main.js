@@ -13,7 +13,7 @@ const theme = createTheme();
 
 function Main() {
     const [products, setProducts] = useState([]);
-    const fetchProducts = async () => {
+    const fetchDataProducts = async () => {
         try {
             const data = await getAllProducts();
             setProducts(data);
@@ -23,9 +23,11 @@ function Main() {
             console.log(error);
         }
     };
+
     useEffect(() => {
-        fetchProducts();
+        fetchDataProducts();
     }, []);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -41,14 +43,17 @@ function Main() {
                 >
                     <Container maxWidth="xl">
                         <Typography component="h1" variant="h2" align="left" color="text.primary">
-                            <Catgeory getAllProducts={fetchProducts} setProducts={setProducts} />
+                            <Catgeory
+                                getAllProducts={fetchDataProducts}
+                                setProducts={setProducts}
+                            />
                         </Typography>
                         <Container maxWidth="xl">
-                            <Grid container spacing={4}>
+                            <Grid container spacing={3}>
                                 {React.Children.toArray(
                                     products.map((item) => {
                                         return (
-                                            <Grid item xs={2} sm={4} md={4}>
+                                            <Grid item alignContent="center">
                                                 <ProductCard product={item} />
                                             </Grid>
                                         );

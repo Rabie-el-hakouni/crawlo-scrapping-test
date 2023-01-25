@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const Category = require("./src/models/category");
 const Product = require("./src/models/product");
 
-const waitForMomemnt = async (s) => {
+const waitForSeconds = async (s) => {
   return await new Promise((resolve) => setTimeout(resolve, s * 1000));
 };
 
@@ -27,7 +27,7 @@ const startScrapping = async (url) => {
     await page.goto(url, { waitUntil: "load" });
     await page.waitForSelector("#main-content");
     try {
-      await waitForMomemnt(5);
+      await waitForSeconds(5);
       //accept coockies
       console.log("accepting coockies");
       const cookie_btn = await page.$(
@@ -36,7 +36,7 @@ const startScrapping = async (url) => {
       await cookie_btn?.evaluate((form) => form.click());
       // await page.waitForNavigation();
       //InfiniteScrollIetms;
-      await waitForMomemnt(5);
+      await waitForSeconds(5);
       await InfiniteScrollIetms(page);
     } catch (error) {
       console.log("2 - StartScrapping Function Error : " + error);

@@ -4,7 +4,7 @@ import { getAllCategories, getaProductsByCategoryId } from '../utils/products';
 
 const Catgeory = ({ setProducts, getAllProducts }) => {
     const [categories, setCategories] = useState([]);
-    const fetchData = async () => {
+    const fetchDataCatgeories = async () => {
         try {
             const data = await getAllCategories();
             setCategories(data);
@@ -15,7 +15,7 @@ const Catgeory = ({ setProducts, getAllProducts }) => {
         }
     };
     useEffect(() => {
-        fetchData();
+        fetchDataCatgeories();
     }, []);
 
     const onChange = async (categoryId) => {
