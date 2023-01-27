@@ -207,6 +207,7 @@ const saveDataScrapped = async (data_products) => {
 //clear collections of products and categories
 const clearCollections = async () => {
   try {
+    console.log("Drop products collection");
     await Product.db.dropCollection("products");
     await Category.db.dropCollection("categories");
   } catch (error) {
