@@ -25,7 +25,7 @@ const Main = () => {
 
     useEffect(() => {
         fetchDataProducts();
-        console.log(products[0]);
+        //console.log(products[0]);
     }, []);
 
     return (

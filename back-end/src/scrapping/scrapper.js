@@ -9,8 +9,45 @@ const waitForSeconds = async (s) => {
   return await new Promise((resolve) => setTimeout(resolve, s * 1000));
 };
 
+const getBrands = async (page) => {
+  console.log("getBrands");
+  await page.waitForSelector(
+    "#facet-Marca-content > div > div > div > div.StyledFacetWrapper-sc-10z95lj-0.fcOEDv > button"
+  );
+  const moreBrands = await page.$(
+    "#facet-Marca-content > div > div > div > div.StyledFacetWrapper-sc-10z95lj-0.fcOEDv > button"
+  );
+  await moreBrands?.evaluate((form) => form.click());
+};
+
+const acceptCoockies = async (page) => {
+  try {
+    console.log("accepting coockies");
+    await page.waitForSelector('[data-test="pwa-consent-layer-accept-all"]');
+    const coockieBtn = await page.$(
+      '[data-test="pwa-consent-layer-accept-all"]'
+    );
+    await coockieBtn?.evaluate((form) => form.click());
+  } catch (error) {
+    console.error("Accepting coockies :", error);
+  }
+};
+
+const loadMoreProducts = async (page) => {
+  try {
+    console.log("load more data");
+    await page.waitForSelector('[data-test="mms-search-srp-loadmore"]');
+    const loadMoreBtn = await page.$('[data-test="mms-search-srp-loadmore"]');
+    await loadMoreBtn?.evaluate((form) => form.click());
+    await waitForSeconds(2);
+    await page.waitForSelector('[data-test="mms-search-srp-productlist-item"]');
+  } catch (error) {
+    console.error("Accepting coockies :", error);
+  }
+};
 //scroll to the bottom of the page for load images
 const InfiniteScrollIetms = async (page) => {
+  console.log("loading infinite scroll");
   await page.evaluate(async () => {
     const distance = 80;
     let totalHeight = 0;
@@ -25,23 +62,24 @@ const InfiniteScrollIetms = async (page) => {
 const startScrapping = async (url) => {
   try {
     console.log(`start scrapping for url : ${url}`);
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: false,
+    });
     const page = await browser.newPage();
     page.setDefaultNavigationTimeout(0);
     await page.goto(url, { waitUntil: "load" });
     await page.waitForSelector("#main-content");
+    await getBrands(page);
     try {
       await waitForSeconds(5);
       //accept coockies
-      console.log("accepting coockies");
-      await page.waitForSelector('[data-test="pwa-consent-layer-accept-all"]');
-      const coockie_btn = await page.$(
-        '[data-test="pwa-consent-layer-accept-all"]'
-      );
-      await coockie_btn?.evaluate((form) => form.click());
-      //InfiniteScrollIetms;
-      await waitForSeconds(5);
-      console.log("scrolling");
+      await acceptCoockies(page);
+      await waitForSeconds(3);
+      //load More product
+      //await loadMoreProducts(page);
+      // await waitForSeconds(3);
+      //scroll to the bottom of the page for load images
       await InfiniteScrollIetms(page);
     } catch (error) {
       console.log("StartScrapping Function Error : " + error);
@@ -51,11 +89,19 @@ const startScrapping = async (url) => {
       const category = {
         name: document.querySelector("div > h1")?.outerText ?? "",
       };
+      const brands =
+        document.querySelector("#facet-Marca-content")?.outerText ?? "";
+      const brandArray = brands
+        .split("\n")
+        .filter((brand) => brand !== "Buscar...")
+        .map((brand) => brand.split(" ")[0]);
+      console.log(brandArray);
       //get Products
       const data_products = [];
       const selected_products = document.querySelectorAll(
         '[data-test="mms-search-srp-productlist-item"]'
       );
+
       selected_products.forEach((handle_product) => {
         let product = {};
         //get name of product
@@ -73,7 +119,14 @@ const startScrapping = async (url) => {
             .querySelector("div > picture > img")
             ?.getAttribute("src") ?? "";
         //extract brand from name of product
-        const brand = name.match(/-\s*(\w+\s*\w+)/)[1].split(" ")[0];
+        let brand =
+          brandArray.find((b) =>
+            name.toLowerCase().includes(b.toLowerCase())
+          ) ||
+          name
+            .match(/-\s*(\w+\s*\w+)/)[1]
+            .split(" ")[0]
+            .toUpperCase();
         //get specifications of product
         const specifications =
           handle_product
@@ -169,7 +222,6 @@ const scrappAllUrls = async () => {
       `${url_category}/pendrives-y-memorias-usb-207.html`,
       `${url_category}/port%C3%A1tiles-gaming-158.html`,
       `${url_category}/ratones-gaming-136.html`,
-      `${url_category}/cockpits-y-simuladores-1211.html`,
     ];
     //clear collection
     await clearCollections();
