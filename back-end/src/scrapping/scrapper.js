@@ -12,7 +12,7 @@ const waitForSeconds = async (s) => {
 //scroll to the bottom of the page for load images
 const InfiniteScrollIetms = async (page) => {
   await page.evaluate(async () => {
-    const distance = 50;
+    const distance = 80;
     let totalHeight = 0;
     while (totalHeight < document.body.scrollHeight) {
       totalHeight += distance;
@@ -24,10 +24,10 @@ const InfiniteScrollIetms = async (page) => {
 //start the scraping for each category
 const startScrapping = async (url) => {
   try {
-    console.log("start scrapping");
+    console.log(`start scrapping for url : ${url}`);
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(0);
+    page.setDefaultNavigationTimeout(0);
     await page.goto(url, { waitUntil: "load" });
     await page.waitForSelector("#main-content");
     try {
@@ -40,7 +40,7 @@ const startScrapping = async (url) => {
       );
       await coockie_btn?.evaluate((form) => form.click());
       //InfiniteScrollIetms;
-      await waitForSeconds(4);
+      await waitForSeconds(5);
       console.log("scrolling");
       await InfiniteScrollIetms(page);
     } catch (error) {
@@ -168,6 +168,8 @@ const scrappAllUrls = async () => {
       `${url_category}/ssd-198.html`,
       `${url_category}/pendrives-y-memorias-usb-207.html`,
       `${url_category}/port%C3%A1tiles-gaming-158.html`,
+      `${url_category}/ratones-gaming-136.html`,
+      `${url_category}/cockpits-y-simuladores-1211.html`,
     ];
     //clear collection
     await clearCollections();

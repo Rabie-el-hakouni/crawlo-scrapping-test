@@ -25,6 +25,7 @@ const Main = () => {
 
     useEffect(() => {
         fetchDataProducts();
+        console.log(products[0]);
     }, []);
 
     return (
@@ -50,10 +51,10 @@ const Main = () => {
                         <Container maxWidth="xl">
                             <Grid container spacing={3}>
                                 {React.Children.toArray(
-                                    products.map((item) => {
+                                    products?.map((item) => {
                                         return (
                                             <Grid item alignContent="center">
-                                                <ProductCard product={item} />
+                                                <ProductCard key={item._id} product={item} />
                                             </Grid>
                                         );
                                     })

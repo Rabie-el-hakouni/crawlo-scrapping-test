@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 //import routes
-const scrapRoute = require("./src/routes/scraper");
+const scrapRoute = require("./src/routes/scrapper");
 const productRoute = require("./src/routes/product");
 
 //Config App

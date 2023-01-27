@@ -19,7 +19,7 @@ import { deliveryToHours, disponibleToInStock } from '../utils/utils';
 
 const ProductCard = ({ product }) => {
     useEffect(() => {
-        console.log(product.name);
+        console.log(product?.availability);
     }, []);
 
     return (
@@ -45,7 +45,7 @@ const ProductCard = ({ product }) => {
                                 color="info"
                                 size="small"
                                 textAlign="center"
-                                label={`Ctagory: ${product.category.name}`}
+                                label={`Ctagory: ${product?.category?.name}`}
                             />
                             <Chip
                                 variant="outlined"
@@ -58,14 +58,16 @@ const ProductCard = ({ product }) => {
                                 color="warning"
                                 size="small"
                                 textAlign="center"
-                                label={`Delivery: ${deliveryToHours(product.delivery)} H`}
+                                label={`Delivery: ${deliveryToHours(product?.delivery)}`}
                             />
 
                             <Chip
                                 color="success"
                                 size="small"
                                 textAlign="center"
-                                label={`Availability: ${disponibleToInStock(product.availability)}`}
+                                label={`Availability: ${disponibleToInStock(
+                                    product?.availability
+                                )}`}
                             />
                             <Chip
                                 color="error"

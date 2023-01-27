@@ -8,7 +8,7 @@ router.get("/scrap", (req, res) => {
   try {
     scrappAllUrls();
     return res.status(200).json({
-      message: "data scrapped successfully",
+      message: "scrapping data .....",
     });
   } catch (error) {
     console.log(error);

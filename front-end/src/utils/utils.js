@@ -1,13 +1,16 @@
 export const deliveryToHours = (delivery) => {
     let deliveryDates = delivery;
-    let startDate;
-    let endDate;
-    if (deliveryDates.length !== 0) {
+
+    if (deliveryDates !== '' && deliveryDates.includes('Entrega ')) {
+        let startDate;
+        let endDate;
         deliveryDates = deliveryDates.replace('Entrega ', '');
         startDate = new Date(deliveryDates.split(' - ')[0].split('/').reverse().join('-'));
         endDate = new Date(deliveryDates.split(' - ')[1].split('/').reverse().join('-'));
+        return (endDate - startDate) / (60 * 60 * 1000) + 'H';
+    } else {
+        return deliveryDates + 'H';
     }
-    return (endDate - startDate) / (60 * 60 * 1000);
 };
 
 export const disponibleToInStock = (availability) => {
