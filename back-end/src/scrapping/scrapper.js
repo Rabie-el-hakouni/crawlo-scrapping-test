@@ -33,18 +33,18 @@ const acceptCoockies = async (page) => {
   }
 };
 
-const loadMoreProducts = async (page) => {
-  try {
-    console.log("load more data");
-    await page.waitForSelector('[data-test="mms-search-srp-loadmore"]');
-    const loadMoreBtn = await page.$('[data-test="mms-search-srp-loadmore"]');
-    await loadMoreBtn?.evaluate((form) => form.click());
-    await waitForSeconds(2);
-    await page.waitForSelector('[data-test="mms-search-srp-productlist-item"]');
-  } catch (error) {
-    console.error("Accepting coockies :", error);
-  }
-};
+// const loadMoreProducts = async (page) => {
+//   try {
+//     console.log("load more data");
+//     await page.waitForSelector('[data-test="mms-search-srp-loadmore"]');
+//     const loadMoreBtn = await page.$('[data-test="mms-search-srp-loadmore"]');
+//     await loadMoreBtn?.evaluate((form) => form.click());
+//     await waitForSeconds(2);
+//     await page.waitForSelector('[data-test="mms-search-srp-productlist-item"]');
+//   } catch (error) {
+//     console.error("Accepting coockies :", error);
+//   }
+// };
 //scroll to the bottom of the page for load images
 const InfiniteScrollIetms = async (page) => {
   console.log("loading infinite scroll");

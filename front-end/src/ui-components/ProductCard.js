@@ -10,7 +10,8 @@ import {
     Divider,
     Grid,
     Stack,
-    Typography
+    Typography,
+    Link
 } from '@mui/material';
 
 import { Box } from '@mui/system';
@@ -41,12 +42,15 @@ const ProductCard = ({ product }) => {
                 <Box sx={{ m: 2 }}>
                     <Stack direction="row" spacing={3}>
                         <Grid continer="true">
-                            <Chip
-                                color="info"
-                                size="small"
-                                textAlign="center"
-                                label={`Ctagory: ${product?.category?.name}`}
-                            />
+                            <Link href={`${product?.category?.href}`} underline="none">
+                                <Chip
+                                    color="info"
+                                    size="small"
+                                    textAlign="center"
+                                    label={`Ctagory: ${product?.category?.name}`}
+                                />
+                            </Link>
+
                             <Chip
                                 variant="outlined"
                                 size="small"

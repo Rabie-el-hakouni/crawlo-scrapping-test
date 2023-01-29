@@ -6,6 +6,9 @@ const categorySchema = new mongoose.Schema(
     name: {
       type: String,
     },
+    href: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
