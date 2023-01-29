@@ -1,6 +1,6 @@
 const express = require("express");
 // const scrappAllUrls = require("../scrapping/scrapper");
-const scrapData = require("../scrapping/test");
+const scrapData = require("../scrapping/scrapper");
 
 //-------------------------Scrap Router-----------------------------------//
 const router = express.Router();
